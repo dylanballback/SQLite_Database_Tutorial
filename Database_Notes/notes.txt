@@ -1,0 +1,142 @@
+
+Basic sqlite3 commands 
+-------------------------------------------------------------------------------------
+Opens database file
+    - sqlite3 "database filename"
+
+
+See all tables in database file 
+    - .tables
+
+
+See database tables schema
+    - .schema "table name"
+
+
+Clear Console 
+    - CTRL L
+
+
+Display column names, displays data easier to read
+    - .headers on 
+    - .mode column
+
+
+
+Common SQL Commands
+-------------------------------------------------------------------------------------
+SELECT - extracts data from a database
+UPDATE - updates data in a database
+DELETE - deletes data from a database
+INSERT INTO - inserts new data into a database
+CREATE DATABASE - creates a new database
+ALTER DATABASE - modifies a database
+CREATE TABLE - creates a new table
+ALTER TABLE - modifies a table
+DROP TABLE - deletes a table 
+CREATE INDEX - creates an index (search key)
+DROP INDEX - deletes an index
+
+
+
+Getting Data from Tables 
+-------------------------------------------------------------------------------------
+Select all data from table 
+    - SELECT * FROM "table name" ;
+
+
+Select all data from table but only display first 5 rows
+    - SELECT * FROM "table name" LIMIT 5;
+
+
+Get all data for a desired column value
+    - SELECT * FROM "table name" WHERE "column name" = 'desired value here';
+
+
+Taking multiple tables and joining them together
+    - SELECT * FROM "table name1" INNER JOIN "table name2" ON "table_name1.column_name=table_name2.column_name;
+
+
+Getting specified items from two different tables 
+    - SELECT "table_name1.column_name", "table_name2.column_name"
+      FROM "table name1"
+      INNER JOIN "table name2"
+      ON "table_name1.column_name=table_name2.column_name
+      LIMIT 1;
+
+
+    Example JOIN
+        - SELECT parameters.parameter_id, data.x, data.time 
+        FROM parameters 
+        INNER JOIN data 
+        ON parameters.parameter_id=data.parameter_id;
+
+
+
+
+
+DATA TYPES 
+-------------------------------------------------------------------------------------
+NULL = no value
+REAL = like float
+TEXT = like string
+INTEGER = integer
+
+
+
+
+
+Creating Tables  
+-------------------------------------------------------------------------------------
+Create a table 
+    - CREATE TABLE "table name" {table_name DATA_TYPE NOT NULL AUTOINCREMENT}
+    Example
+        - CREATE TABLE parameters (parameter_id INTEGER NOT NULL AUTOINCREMENT, test TEXT, elapsed_time REAL, voltage INTEGER, PRIMARY KEY {parameter_id});
+
+        Better way to format: 
+            CREATE TABLE parameters (
+            parameter_id INTEGER PRIMARY KEY AUTOINCREMENT,
+            test TEXT,
+            elapsed_time REAL,
+            voltage INTEGER
+            );
+
+
+
+Inserting Data  
+-------------------------------------------------------------------------------------
+How to insert data into table 
+    - INSERT INTO "table name" ("column names") VALUES ("Data that is inserted; String needs to be in quotes");
+    Example 
+        - INSERT INTO parameters (test, elapsed_time, voltage) VALUES ("Test", 13.3, 12);
+
+
+CREATE TABLE data (
+    id INTEGER PRIMARY KEY AUTOINCREMENT,
+    parameter_id INTEGER,
+    x REAL,
+    y REAL,
+    z REAL, 
+    m1 REAL,
+    m2 REAL,
+    m3 REAL, 
+    time REAL,
+    FOREIGN KEY(parameter_id) REFERENCES parameters(parameter_id)
+    );
+
+INSERT INTO data (parameter_id, x, y, z, m1, m2, m3, time) VALUES (1, 5, 5, 5, 20, 10, 30, 10);
+
+
+
+-------------------------------------------------------------------------------------
+---------------------- Class and Functions Database Version -------------------------
+-------------------------------------------------------------------------------------
+
+
+
+Primary and Foreign Key
+-------------------------------------------------------------------------------------
+"database.add_sensor_data([1, 5, 2.4, 3.4, 6.9]))" returns the row number of the table
+- this can be used to get the primary key of a parameters table and use it as the foreign key 
+
+
